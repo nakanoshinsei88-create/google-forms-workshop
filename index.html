@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google フォーム 30分実践ワークショップ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* --- [ブロック名：基本変数・ベースデザインCSS] ここから --- */
+    :root {
+      --bg-base: #f6f4fb;
+      --surface: rgba(255, 255, 255, 0.88);
+      --primary: #673ab7;
+      --primary-light: #ede7f6;
+      --primary-dark: #4527a0;
+      --accent: #00bfa5;
+      --text-main: #1e1b2e;
+      --text-sub: #5c5770;
+      --border-thin: rgba(103, 58, 183, 0.16);
+      --shadow-soft: 0 12px 32px rgba(69, 39, 160, 0.08);
+      --radius-lg: 20px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(at 10% 10%, rgba(103, 58, 183, 0.09) 0px, transparent 50%),
+        radial-gradient(at 90% 85%, rgba(0, 191, 165, 0.08) 0px, transparent 50%);
+      color: var(--text-main);
+      line-height: 1.7;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* --- [ブロック名：基本変数・ベースデザインCSS] ここまで --- */
+
+    /* --- [ブロック名：ヘッダー・進行バーCSS] ここから --- */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-thin);
+      padding: 12px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .timer-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--border-thin);
+      padding: 6px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .timer-display {
+      font-family: 'Plus Jakarta Sans', monospace;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+      min-width: 58px;
+      text-align: center;
+    }
+
+    .btn-mini {
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .btn-mini:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-mini.secondary {
+      background: #eceaf4;
+      color: var(--text-main);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      background: #e6e1f2;
+      margin-top: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    /* --- [ブロック名：ヘッダー・進行バーCSS] ここまで --- */
+
+    /* --- [ブロック名：カード・ミッションUI CSS] ここから --- */
+    .hero-section {
+      text-align: center;
+      padding: 44px 0 32px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), #00897b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      color: var(--text-sub);
+      font-size: 0.98rem;
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .schedule-pill {
+      background: var(--surface);
+      border: 1px solid var(--border-thin);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      text-align: left;
+      backdrop-filter: blur(8px);
+    }
+
+    .schedule-time {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .schedule-label {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .mission-card {
+      background: var(--surface);
+      border: 1px solid var(--border-thin);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(12px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .mission-card.completed {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .mission-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: #fff;
+      background: var(--primary);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .mission-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .check-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 2px solid var(--primary);
+      background: #fff;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mission-card.completed .check-btn {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .copy-box {
+      background: #f3f0fa;
+      border: 1px dashed var(--primary);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin: 14px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .copy-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .tip-note {
+      background: #e0f2f1;
+      color: #004d40;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      margin-top: 12px;
+    }
+
+    .cert-box {
+      display: none;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff, #f3e5f5);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius-lg);
+      padding: 36px 24px;
+      margin-top: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .cert-box.show {
+      display: block;
+      animation: popIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(14px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-main);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 200;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* --- [ブロック名：カード・ミッションUI CSS] ここまで --- */
+    /* === [新規機能追加エリア] 新しいCSSブロックはこの真上に貼り付け === */
+  </style>
+</head>
+<body>
+  <!-- [ブロック名：ヘッダー・タイマーHTML] ここから -->
+  <header class="sticky-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="brand-badge">Google Forms 30分ハンズオン</div>
+        <div class="timer-box">
+          <span style="font-size:0.8rem;font-weight:700;color:var(--text-sub);">残り時間</span>
+          <span class="timer-display" id="timerDisplay">30:00</span>
+          <button class="btn-mini" id="timerToggleBtn">開始</button>
+          <button class="btn-mini secondary" id="timerResetBtn">リセット</button>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+  </header>
+  <!-- [ブロック名：ヘッダー・タイマーHTML] ここまで -->
+  <!-- === [PART 1 ここまで] この真下に PART 2 を貼り付け === -->
+  <!-- === [PART 2 ここから] PART 1 の真下に貼り付け === -->
+  <main class="container">
+    <!-- [ブロック名：ヒーロー・5年前比較セクションHTML] ここから -->
+    <section class="hero-section">
+      <h1 class="hero-title">Google フォーム 30分実践ワークショップ</h1>
+      <p class="hero-sub">
+        講師が約5年前、GEG（Google Educator Group）の研修で最初に出会ったツールが「Google フォーム」でした。<br>
+        当時の体験を振り返りながら、驚くほど進化した現在のフォームを30分でマスターしましょう！
+      </p>
+
+      <div class="mission-card" style="text-align:left; margin-bottom:28px; border-left: 5px solid var(--primary);">
+        <span class="step-tag" style="background:var(--primary-dark);">HISTORY & EVOLUTION</span>
+        <h2 class="mission-title" style="margin-bottom:12px;">約5年前（GEG初参加の頃）と現在のGoogle フォーム比較</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin-top:14px;">
+          <div style="background:#f8f6fc; padding:16px; border-radius:12px; border:1px solid var(--border-thin);">
+            <strong style="color:var(--text-sub); display:block; margin-bottom:6px;">🕰️ 約5年前（当時のGEG研修）</strong>
+            <ul style="padding-left:18px; font-size:0.9rem; color:var(--text-sub);">
+              <li>「紙のアンケートがWebになる！」という感動が主役</li>
+              <li>質問は1つずつ手動で考え、選択肢も手入力</li>
+              <li>デザインはシンプルなテーマカラーとヘッダー画像のみ</li>
+              <li>共有は「リンクを知っている全員」か組織内かの二択中心</li>
+            </ul>
+          </div>
+          <div style="background:#eefaf8; padding:16px; border-radius:12px; border:1px solid rgba(0,191,165,0.3);">
+            <strong style="color:#00695c; display:block; margin-bottom:6px;">🚀 現在（今のGoogle フォーム）</strong>
+            <ul style="padding-left:18px; font-size:0.9rem; color:var(--text-main);">
+              <li><strong>Geminiによるフォーム自動生成</strong>で下書きが一瞬で完成</li>
+              <li>フォント種類・サイズまで細かく選べる洗練されたデザイン</li>
+              <li><strong>回答者の公開設定（対象者指定・公開ボタン）</strong>が進化</li>
+              <li>条件分岐や自動採点・スプレッドシート連携がより直感的に</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="schedule-grid">
+        <div class="schedule-pill">
+          <span class="schedule-time">00:00 - 06:00（6分）</span>
+          <div class="schedule-label">1. 5年前の原体験＆進化の全体像</div>
+        </div>
+        <div class="schedule-pill">
+          <span class="schedule-time">06:00 - 15:00（9分）</span>
+          <div class="schedule-label">2. 質問作成と現代の効率テクニック</div>
+        </div>
+        <div class="schedule-pill">
+          <span class="schedule-time">15:00 - 24:00（9分）</span>
+          <div class="schedule-label">3. 今の公開設定・回答体験テスト</div>
+        </div>
+        <div class="schedule-pill">
+          <span class="schedule-time">24:00 - 30:00（6分）</span>
+          <div class="schedule-label">4. 集計確認＆振り返りまとめ</div>
+        </div>
+      </div>
+    </section>
+    <!-- [ブロック名：ヒーロー・5年前比較セクションHTML] ここまで -->
+
+    <!-- [ブロック名：ハンズオン・ミッションHTML] ここから -->
+    <section id="missionsArea">
+      <!-- Mission 1 -->
+      <article class="mission-card" data-step="1">
+        <div class="mission-head">
+          <div>
+            <span class="step-tag">STEP 1（目安：6分）</span>
+            <h2 class="mission-title">新しいフォームを作成し、タイトルとデザインを整える</h2>
+          </div>
+          <button class="check-btn" onclick="toggleMission(1)">
+            <span class="check-icon">○</span> 完了にする
+          </button>
+        </div>
+        <p>まずは自分のGoogleドライブ（または <strong>forms.new</strong> ）から新規フォームを開きます。5年前は選べなかった「フォントの変更（ヘッダー・質問・テキスト別）」もパレットアイコンから試してみましょう。</p>
+        <div class="copy-box">
+          <span class="copy-text" id="copyText1">Google フォーム実践ミニアンケート</span>
+          <button class="btn-mini" onclick="copySample('copyText1')">タイトルをコピー</button>
+        </div>
+        <div class="tip-note">
+          💡 <strong>振り返りポイント：</strong> 5年前のGEG研修でも「まずは名前と今日の気分を聞く」ところから始まりました。シンプルでも1つ作ることが第一歩です！
+        </div>
+      </article>
+
+      <!-- Mission 2 -->
+      <article class="mission-card" data-step="2">
+        <div class="mission-head">
+          <div>
+            <span class="step-tag">STEP 2（目安：9分）</span>
+            <h2 class="mission-title">3種類の質問形式を使い分ける（＋条件分岐体験）</h2>
+          </div>
+          <button class="check-btn" onclick="toggleMission(2)">
+            <span class="check-icon">○</span> 完了にする
+          </button>
+        </div>
+        <p>以下の3つの形式で質問を追加しましょう。「ラジオボタン」では右下の「⋮」から<strong>「回答に応じてセクションに移動」</strong>を設定すると、回答者に合わせて次の質問を変えることもできます。</p>
+        <ul style="padding-left:20px; margin:10px 0; color:var(--text-main);">
+          <li><strong>記述式：</strong> お名前（またはニックネーム）</li>
+          <li><strong>ラジオボタン：</strong> Google フォームの利用経験（初めて / 少し使った / よく使う）</li>
+          <li><strong>均等目盛（1〜5）：</strong> 今日のワクワク度</li>
+        </ul>
+        <div class="copy-box">
+          <span class="copy-text" id="copyText2">本日のワークショップで一番試してみたい機能はどれですか？</span>
+          <button class="btn-mini" onclick="copySample('copyText2')">質問文をコピー</button>
+        </div>
+      </article>
+
+      <!-- Mission 3 -->
+      <article class="mission-card" data-step="3">
+        <div class="mission-head">
+          <div>
+            <span class="step-tag">STEP 3（目安：9分）</span>
+            <h2 class="mission-title">現在の「公開」仕様を確認してプレビュー回答する</h2>
+          </div>
+          <button class="check-btn" onclick="toggleMission(3)">
+            <span class="check-icon">○</span> 完了にする
+          </button>
+        </div>
+        <p>ここが5年前と大きく変わった重要ポイントです！現在のGoogle フォームは作成後に右上の<strong>「公開」ボタン</strong>を押して公開範囲（リンクを知っている全員／特定のユーザー）を管理します。</p>
+        <div class="tip-note">
+          ⚠️ <strong>昔との違いに注意：</strong> 以前は「送信」ボタンからURLをコピーするだけでしたが、現在は「公開」設定がオフだと他の人が開けません。プレビュー（目のアイコン）から自分で1回回答を送ってみましょう！
+        </div>
+      </article>
+
+      <!-- Mission 4 -->
+      <article class="mission-card" data-step="4">
+        <div class="mission-head">
+          <div>
+            <span class="step-tag">STEP 4（目安：6分）</span>
+            <h2 class="mission-title">リアルタイム集計グラフとスプレッドシート連携を見る</h2>
+          </div>
+          <button class="check-btn" onclick="toggleMission(4)">
+            <span class="check-icon">○</span> 完了にする
+          </button>
+        </div>
+        <p>上部の「回答」タブを開き、自動生成された円グラフ・棒グラフを確認します。さらに「スプレッドシートにリンク」をクリックし、回答データが表に自動転記される快感を体験しましょう。</p>
+      </article>
+    </section>
+    <!-- [ブロック名：ハンズオン・ミッションHTML] ここまで -->
+
+    <!-- [ブロック名：修了バッジ・振り返りカードHTML] ここから -->
+    <section class="cert-box" id="certBox">
+      <div style="font-size:2.4rem; margin-bottom:8px;">🎉</div>
+      <span class="step-tag" style="background:var(--accent);">WORKSHOP COMPLETED</span>
+      <h2 style="font-size:1.5rem; font-weight:900; margin:8px 0;">30分実践ミッション全クリア！</h2>
+      <p style="color:var(--text-sub); margin-bottom:16px;">
+        5年前から進化し続けるGoogle フォームの基本から最新仕様まで完走しました。<br>
+        今日作ったフォームを、ぜひ明日の業務や授業・コミュニティ活動で活用してみてください！
+      </p>
+      <div style="display:inline-block; background:#fff; padding:12px 24px; border-radius:12px; border:1px solid var(--border-thin); font-weight:700; color:var(--primary-dark);">
+        Google フォーム 30分ハンズオン修了証
+      </div>
+    </section>
+    <!-- [ブロック名：修了バッジ・振り返りカードHTML] ここまで -->
+    <!-- === [新規機能追加エリア] 新しいHTMLブロックはこの真上に貼り付け === -->
+  </main>
+
+  <div class="toast" id="toast">コピーしました！</div>
+  <!-- === [PART 2 ここまで] この真下に PART 3 を貼り付け === -->
+  <!-- === [PART 3 ここから] PART 2 の真下に貼り付け === -->
+  <script>
+    // --- [ブロック名：30分カウントダウンタイマー処理] ここから ---
+    let totalSeconds = 30 * 60;
+    let timerInterval = null;
+    let isRunning = false;
+
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerToggleBtn = document.getElementById('timerToggleBtn');
+    const timerResetBtn = document.getElementById('timerResetBtn');
+
+    function updateTimerView() {
+      const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+      const secs = String(totalSeconds % 60).padStart(2, '0');
+      timerDisplay.textContent = `${mins}:${secs}`;
+      if (totalSeconds <= 300 && totalSeconds > 0) {
+        timerDisplay.style.color = '#d32f2f';
+      } else {
+        timerDisplay.style.color = 'var(--primary-dark)';
+      }
+    }
+
+    timerToggleBtn.addEventListener('click', () => {
+      if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        timerToggleBtn.textContent = '再開';
+      } else {
+        isRunning = true;
+        timerToggleBtn.textContent = '一時停止';
+        timerInterval = setInterval(() => {
+          if (totalSeconds > 0) {
+            totalSeconds--;
+            updateTimerView();
+          } else {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timerToggleBtn.textContent = '終了';
+            showToast('30分が経過しました！お疲れさまでした！');
+          }
+        }, 1000);
+      }
+    });
+
+    timerResetBtn.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      isRunning = false;
+      totalSeconds = 30 * 60;
+      timerToggleBtn.textContent = '開始';
+      updateTimerView();
+    });
+    // --- [ブロック名：30分カウントダウンタイマー処理] ここまで ---
+
+    // --- [ブロック名：ミッション進捗・コピー・修了証ギミック] ここから ---
+    const completedSteps = new Set();
+    const totalMissions = 4;
+
+    function toggleMission(stepNumber) {
+      const card = document.querySelector(`.mission-card[data-step="${stepNumber}"]`);
+      const btn = card.querySelector('.check-btn');
+
+      if (completedSteps.has(stepNumber)) {
+        completedSteps.delete(stepNumber);
+        card.classList.remove('completed');
+        btn.innerHTML = '<span class="check-icon">○</span> 完了にする';
+      } else {
+        completedSteps.add(stepNumber);
+        card.classList.add('completed');
+        btn.innerHTML = '<span class="check-icon">✓</span> 完了済み';
+        showToast(`STEP ${stepNumber} を完了しました！`);
+      }
+
+      const percent = (completedSteps.size / totalMissions) * 100;
+      document.getElementById('progressFill').style.width = `${percent}%`;
+
+      const certBox = document.getElementById('certBox');
+      if (completedSteps.size === totalMissions) {
+        certBox.classList.add('show');
+        certBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        certBox.classList.remove('show');
+      }
+    }
+
+    function copySample(elementId) {
+      const text = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('テキストをクリップボードにコピーしました！');
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2400);
+    }
+    // --- [ブロック名：ミッション進捗・コピー・修了証ギミック] ここまで ---
+    // === [新規機能追加エリア] 新しいJSブロックはこの真上に貼り付け ===
+  </script>
+</body>
+</html>
