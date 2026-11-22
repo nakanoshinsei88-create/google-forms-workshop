@@ -411,20 +411,25 @@
     </section>
     <!-- [ブロック名：ヒーロー・5年前比較セクションHTML] ここまで -->
       
-    <!-- [ブロック名：ハンズオン・ミッションHTML] ここから -->
+<!-- [ブロック名：ハンズオン・ミッションHTML] ここから -->
     <section id="missionsArea">
       <!-- Mission 1 -->
       <article class="mission-card" data-step="1">
         <div class="mission-head">
           <div>
-            <span class="step-tag">STEP 1（目安：6分）</span>
+            <span class="step-tag">STEP 1（目安：5分）</span>
             <h2 class="mission-title">新しいフォームを作成し、タイトルとデザインを整える</h2>
           </div>
           <button class="check-btn" onclick="toggleMission(1)">
             <span class="check-icon">○</span> 完了にする
           </button>
         </div>
-        <p>まずは自分のGoogleドライブ（または <strong>forms.new</strong> ）から新規フォームを開きます。5年前は選べなかった「フォントの変更（ヘッダー・質問・テキスト別）」もパレットアイコンから試してみましょう。</p>
+        <p>下のボタンから新しいGoogleフォームを一瞬で開けます。5年前は選べなかった「フォントの変更（ヘッダー・質問・テキスト別）」も右上のパレットアイコンから試してみましょう。</p>
+        <div style="margin: 14px 0;">
+          <a href="https://forms.new" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; background:var(--primary); color:#fff; text-decoration:none; font-weight:700; font-size:0.92rem; padding:11px 20px; border-radius:999px; box-shadow:0 4px 14px rgba(103, 58, 183, 0.25);">
+            ＋ 新しい Google フォームを開く（forms.new） ↗
+          </a>
+        </div>
         <div class="copy-box">
           <span class="copy-text" id="copyText1">Google フォーム実践ミニアンケート</span>
           <button class="btn-mini" onclick="copySample('copyText1')">タイトルをコピー</button>
@@ -438,7 +443,7 @@
       <article class="mission-card" data-step="2">
         <div class="mission-head">
           <div>
-            <span class="step-tag">STEP 2（目安：9分）</span>
+            <span class="step-tag">STEP 2（目安：10分）</span>
             <h2 class="mission-title">3種類の質問形式を使い分ける（＋条件分岐体験）</h2>
           </div>
           <button class="check-btn" onclick="toggleMission(2)">
@@ -461,7 +466,7 @@
       <article class="mission-card" data-step="3">
         <div class="mission-head">
           <div>
-            <span class="step-tag">STEP 3（目安：9分）</span>
+            <span class="step-tag">STEP 3（目安：8分）</span>
             <h2 class="mission-title">現在の「公開」仕様を確認してプレビュー回答する</h2>
           </div>
           <button class="check-btn" onclick="toggleMission(3)">
@@ -478,14 +483,20 @@
       <article class="mission-card" data-step="4">
         <div class="mission-head">
           <div>
-            <span class="step-tag">STEP 4（目安：6分）</span>
-            <h2 class="mission-title">リアルタイム集計グラフとスプレッドシート連携を見る</h2>
+            <span class="step-tag">STEP 4（目安：7分）</span>
+            <h2 class="mission-title">集計グラフ・スプレッドシート連携＆GAS自動化の可能性</h2>
           </div>
           <button class="check-btn" onclick="toggleMission(4)">
             <span class="check-icon">○</span> 完了にする
           </button>
         </div>
-        <p>上部の「回答」タブを開き、自動生成された円グラフ・棒グラフを確認します。さらに「スプレッドシートにリンク」をクリックし、回答データが表に自動転記される快感を体験しましょう。</p>
+        <p>上部の「回答」タブから自動グラフとスプレッドシート連携を確認します。さらに一歩進んだ活用として、スプレッドシート側の<strong>「拡張機能 ＞ Apps Script（GAS）」</strong>を組み合わせると、現場の業務が一変します！</p>
+        <div class="tip-note" style="background:#f3e5f5; color:#4a148c;">
+          🚀 <strong>経験者向け・GAS連携のアイデア例：</strong><br>
+          ・フォーム送信と同時に回答者へ「お礼＆受付完了メール」を自動送信<br>
+          ・イベント申込や欠席連絡が入ったら、即座にGoogle ChatやLINEへ自動通知<br>
+          ・回答内容をもとにGoogleドキュメントの個別レポートや修了証を自動生成
+        </div>
       </article>
     </section>
     <!-- [ブロック名：ハンズオン・ミッションHTML] ここまで -->
